@@ -138,21 +138,21 @@ window.addEventListener('DOMContentLoaded', async () => {
 
     const createScene = async () => {
         const scene = new BABYLON.Scene(engine);
-        scene.clearColor = new BABYLON.Color4(0.1, 0.1, 0.15, 1);
+        
+        // [修正] 設定背景顏色為純黑，讓玻璃擬態效果更明顯，且不透出網頁白底
+        scene.clearColor = new BABYLON.Color4(0, 0, 0.05, 0.95);
+
         let renderableMeshes = [];
         let pointCloudMeshes = [];
-        
         let shaderMaterials = []; 
         let time = 0;
         let isPointCloudMode = true;
-
-        // [新增修正] 宣告全域滑鼠位置變數，預設在中心
         let globalMousePos = new BABYLON.Vector2(0.5, 0.5);
 
         const defaultInitialView = { 
             name: "預設視角", 
-            position: new BABYLON.Vector3(446, 900, -2000),
-            target: new BABYLON.Vector3(446, 250, -500) 
+            position: new BABYLON.Vector3(446, 180, -2000),
+            target: new BABYLON.Vector3(446, 180, -500) 
         };
 
         const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 150, BABYLON.Vector3.Zero(), scene);
@@ -162,12 +162,8 @@ window.addEventListener('DOMContentLoaded', async () => {
         new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
 
         const GLB_FILE_PATH = "sitecam.glb"; 
-        const TOTAL_POINT_COUNT = 250000;
+        const TOTAL_POINT_COUNT = 200000;
         
-        // ... (這裡省略中間載入模型的長代碼，請保留您原本的載入與點雲生成邏輯) ...
-        // ... (請確保這裡有點雲生成的程式碼，與之前相同) ...
-        
-        // 為了方便您複製貼上，這裡重新提供模型載入與點雲生成的核心部分，確保變數正確
         try {
             const importResult = await BABYLON.SceneLoader.ImportMeshAsync(null, "", GLB_FILE_PATH, scene);
             
@@ -178,8 +174,6 @@ window.addEventListener('DOMContentLoaded', async () => {
                 rootNode.computeWorldMatrix(true);
             }
 
-            const navBar = document.getElementById('navigation-bar');
-            
             // 處理導覽節點
             const navigationNodes = [];
             const navDataMap = new Map();
@@ -251,7 +245,7 @@ window.addEventListener('DOMContentLoaded', async () => {
                     shaderMaterial.setFloat("edgeFadeStart", 1.0);
                     shaderMaterial.setFloat("edgeFadePower", 5.0);
                     shaderMaterial.setFloat("centerDensityFactor", 2.0);
-                    shaderMaterial.setFloat("centerDensityRadius", 0.55);
+                    shaderMaterial.setFloat("centerDensityRadius", 0.4);
 
                     shaderMaterial.setTexture("textureSampler", texture);
                     shaderMaterial.backFaceCulling = false;
@@ -291,15 +285,15 @@ window.addEventListener('DOMContentLoaded', async () => {
                     border-radius: 4px;
                     color: white;
                     opacity: 0;
-                    pointer-events: none; /* 隱藏時不阻擋滑鼠 */
+                    pointer-events: none;
                     transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
                     z-index: 10;
                     font-family: 'Helvetica Neue', 'Arial', sans-serif;
                     box-sizing: border-box;
                     overflow: hidden;
                     
-                    background: rgba(0, 0, 0, 0.15);
-                    backdrop-filter: blur(6px);
+                    background: rgba(0, 0, 0, 0.45);
+                    backdrop-filter: blur(12px);
                     border: 1px solid rgba(255, 255, 255, 0.15);
                     box-shadow: 0 20px 50px rgba(0,0,0,0.5);
                 }
@@ -307,7 +301,7 @@ window.addEventListener('DOMContentLoaded', async () => {
                 #info-panel.active {
                     opacity: 1;
                     transform: translate(-50%, -50%) translateY(0);
-                    pointer-events: auto; /* 顯示時開啟互動，這會擋住 Canvas 事件，所以需要全域監聽 */
+                    pointer-events: auto;
                 }
 
                 /* --- 模式 A: 首頁 (Cover Mode) --- */
@@ -457,20 +451,27 @@ window.addEventListener('DOMContentLoaded', async () => {
                     border-radius: 2px;
                 }
 
-                /* --- RWD: 直式螢幕 --- */
-                @media (max-width: 768px) {
+                /* --- RWD: 直式螢幕 或 寬度 < 高度 --- */
+                /* [關鍵修正] 使用 orientation: portrait 偵測直式狀態 */
+                @media (max-width: 768px), (orientation: portrait) {
+                    
                     #info-panel.mode-cover { width: 85%; padding: 30px; }
                     .cover-main-title { font-size: 3rem; }
                     
+                    /* Group 頁面轉為上下排列 */
                     .group-content-body {
-                        flex-direction: column;
-                        overflow-y: auto;
+                        flex-direction: column; /* 改為垂直 */
+                        overflow-y: auto;       /* 允許滾動 */
                     }
+
                     .group-half-pane {
                         border-right: none;
                         border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-                        min-height: 450px;
+                        /* [修正] 強制設定最小高度，確保內容不被擠壓，每個成員至少佔 50% 視窗高度 */
+                        min-height: 50%;
+                        flex: 0 0 auto; 
                     }
+                    
                     .group-title { font-size: 1rem; }
                     .pane-canvas-area { padding: 15px; }
                 }
@@ -482,7 +483,7 @@ window.addEventListener('DOMContentLoaded', async () => {
             document.body.appendChild(infoPanel);
 
             // ============================================================
-            // --- [Step 2] 定義資料庫 (更新版 JSON) ---
+            // --- [Step 2] 定義資料庫 ---
             // ============================================================
             
             const viewContentData = {
@@ -672,26 +673,17 @@ window.addEventListener('DOMContentLoaded', async () => {
 
         } catch (e) { console.error("Error during model loading:", e); }
 
-        // ============================================================
-        // --- [修改] 全域滑鼠監聽 (解決 Modal 擋住 Canvas 事件的問題) ---
-        // ============================================================
-        
-        // 移除原本的 scene.onPointerMove，改用 window 事件
         window.addEventListener('mousemove', (event) => {
-            // 計算正規化座標 (0.0 ~ 1.0)
             const x = event.clientX / window.innerWidth;
-            const y = 1.0 - (event.clientY / window.innerHeight); // WebGL Y 軸通常是反的
-            
+            const y = 1.0 - (event.clientY / window.innerHeight); 
             globalMousePos.x = x;
             globalMousePos.y = y;
         });
         
-        // 在 Render Loop 中更新 Shader Uniforms
         scene.onBeforeRenderObservable.add(() => {
             time += engine.getDeltaTime() / 1000;
             shaderMaterials.forEach(mat => {
                 mat.setFloat("time", time);
-                // 使用全域變數更新
                 mat.setVector2("mousePos", globalMousePos);
             });
         });
