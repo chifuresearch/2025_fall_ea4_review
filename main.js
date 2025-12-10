@@ -497,7 +497,7 @@ window.addEventListener('DOMContentLoaded', async () => {
                 },
                 1: {
                     type: 'group',
-                    groupTitle: "Event Translation & Dynamic Mechanisms",
+                    groupTitle: "Kinetic Mechanisms of Event Translation",
                     member1: {
                         author: "Yi-Ting",
                         title: "Translating Music Signals into Dynamic Spatial Mechanisms",
@@ -525,10 +525,10 @@ window.addEventListener('DOMContentLoaded', async () => {
                 },
                 3: {
                     type: 'group',
-                    groupTitle: "Research on Light Interface & Warp Shaders",
+                    groupTitle: "Research on Light Interfaces",
                     member1: {
                         author: "Hao-Lun",
-                        title: "Applying Noise Warp Shaders to Dynamic Flexible Surface Projection",
+                        title: "Applying Noise Warp Shaders to Flexible Surface Projection",
                         p5Url: "https://editor.p5js.org/chifuresearch/full/VR-V2eKMg"
                     },
                     member2: {
@@ -728,3 +728,4 @@ function generatePointDataOnMesh(mesh, pointCount) {
         pointPositions.push(worldPos.x, worldPos.y, worldPos.z);pointUVs.push(randomPointUV.x, randomPointUV.y);pointIndices.push(i);}
     return { positions: pointPositions, uvs: pointUVs, indices: pointIndices };
 }
+
