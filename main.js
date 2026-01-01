@@ -1081,7 +1081,7 @@ window.addEventListener('DOMContentLoaded', async () => {
                 infoPanel = newPanel;
 
                 // --- 時間檢查 ---
-                const targetDate = new Date("January 1, 2026 9:00:00").getTime();
+                const targetDate = new Date("January 10, 2026 9:00:00").getTime();
                 const now = new Date().getTime();
                 const isTimeUp = now >= targetDate;
 
