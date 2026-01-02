@@ -606,7 +606,9 @@ window.addEventListener('DOMContentLoaded', async () => {
                     gap: 3vw;
                     align-items: flex-start;
                 }
-                .time-unit { display: flex; flex-direction: column; align-items: center; }
+                .time-unit { 
+                    display: flex; flex-direction: column; align-items: center; 
+                }
                 .time-val {
                     font-family: 'Courier New', monospace;
                     font-weight: 700;
@@ -622,7 +624,9 @@ window.addEventListener('DOMContentLoaded', async () => {
                     margin-top: -5px;
                 }
                 .time-label {
-                    font-size: 0.9rem; color: #00ffcc; margin-top: 5px; letter-spacing: 2px; opacity: 0.8;
+                    font-size: 0.9rem; 
+                    color: #00ffcc; 
+                    margin-top: 5px; letter-spacing: 2px; opacity: 0.8;
                 }
 
                 /* --- [修正 2] 底部資訊區 (間距加大) --- */
@@ -684,7 +688,12 @@ window.addEventListener('DOMContentLoaded', async () => {
                 }
 
                 .staff-info-row {
-                    font-size: 0.9rem; color: #666; letter-spacing: 1px; line-height: 1.5;
+                    font-size: 0.9rem; 
+                    font-weight:500;
+                    color: #777;
+                    text-shadow: 0 0 5px rgba(0, 255, 204, 0.7);
+                    // color: #007733; 
+                    letter-spacing: 1px; line-height: 1.5;
                 }
 
                 /* --- 手機橫向優化 --- */
