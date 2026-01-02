@@ -888,7 +888,7 @@ window.addEventListener('DOMContentLoaded', async () => {
                 0: {
                     type: 'cover',
                     // [上] 小字資訊
-                    topInfo: "2026.01.10 10:00 | TKU BLACK SWAN HALL",
+                    topInfo: "2026.01.10 10:00 | TKUA STAIRSROOM (G507)",
                     // [中] 主標題
                     mainTitle: "EA4 FINAL REVIEW", 
                     // [下] 底部資訊
@@ -1621,3 +1621,4 @@ function generatePointDataOnMesh(mesh, pointCount) {
         pointPositions.push(worldPos.x, worldPos.y, worldPos.z);pointUVs.push(randomPointUV.x, randomPointUV.y);pointIndices.push(i);}
     return { positions: pointPositions, uvs: pointUVs, indices: pointIndices };
 }
+
