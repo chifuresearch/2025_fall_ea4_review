@@ -873,6 +873,295 @@ window.addEventListener('DOMContentLoaded', async () => {
                     .diagram-arrow { transform: rotate(90deg); }
                     .info-header { flex-wrap: wrap; } .tab-btn { flex: 1 0 50%; }
                 }
+
+                /* ========================================================================== */
+                /* --- [手機版整合設定] 包含文字放大與版面調整 --- */
+                /* ========================================================================== */
+                @media (max-width: 768px), (orientation: portrait) {
+                    
+                    /* --- 1. 全局面板調整 --- */
+                    #info-panel.mode-cover {
+                        width: 100%; 
+                        height: 100%; /* 讓面板稍微大一點，利用螢幕空間 */
+                        display: flex;
+                        flex-direction: column;
+                        // overflow: hidden; /* [關鍵] 防止任何子元素的背景色溢出圓角邊框 */
+                    } 
+                    #info-panel.mode-group {
+                        width: 90%; 
+                        height: 80%; /* 讓面板稍微大一點，利用螢幕空間 */
+                        display: flex;
+                        flex-direction: column;
+                        // overflow: hidden; /* [關鍵] 防止任何子元素的背景色溢出圓角邊框 */
+                        /* [修正] 調整回半透明，並加入毛玻璃效果 */
+                        background: rgba(10, 10, 15, 0.15); 
+                        backdrop-filter: blur(3px); 
+                        -webkit-backdrop-filter: blur(10px); /* 支援 Safari */
+                        border: 1px solid rgba(255, 255, 255, 0.15);
+                        box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+                    } 
+                    #info-panel.mode-info {
+                        width: 90%; 
+                        height: 60%; /* 讓面板稍微大一點，利用螢幕空間 */
+                        display: flex;
+                        flex-direction: column;
+                        // overflow: hidden; /* [關鍵] 防止任何子元素的背景色溢出圓角邊框 */
+                        /* [修正] 調整回半透明，並加入毛玻璃效果 */
+                        background: rgba(10, 10, 15, 0.15); 
+                        backdrop-filter: blur(3px); 
+                        -webkit-backdrop-filter: blur(10px); /* 支援 Safari */
+                        border: 1px solid rgba(255, 255, 255, 0.15);
+                        box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+                    }
+
+                    /* --- 2. Cover Mode (模式A) 文字放大區 --- */
+                    #info-panel.mode-cover { 
+                        gap: 3vh; /* 調整手機版垂直間距 */
+                        padding: 20px; 
+                    }
+
+                    /* [頂部] 時間地點資訊放大 */
+                    .cover-meta-info { 
+                        font-size: 1.5rem !important; 
+                        letter-spacing: 1px;
+                    }
+
+                    /* [中間] 主標題放大 */
+                    .cover-main-title { 
+                        font-size: 3.5rem !important; /* 強制放大標題 */
+                        line-height: 1.1;
+                    }
+
+                    /* [中間] 倒數計時數字放大 */
+                    .time-val { 
+                        font-size: 2.2rem !important; 
+                    }
+                    .time-label {
+                        font-size: 0.8rem !important;
+                    }
+
+                    /* [底部] 底部區域間距與文字 */
+                    .cover-bottom-section { 
+                        gap: 20px; 
+                        width: 100%;
+                    }
+
+                    .bottom-studio-name { 
+                        font-size: 1.3rem !important; /* Studio 名稱放大 */
+                        margin-bottom: 5px;
+                    }
+
+                    .bottom-project-title { 
+                        font-size: 1.8rem !important; /* 專案名稱放大 */
+                        line-height: 1.3;
+                    }
+
+                    /* [按鈕] 更容易點擊 */
+                    .explore-simple-btn { 
+                        font-size: 1.3rem !important; 
+                        padding: 15px 30px; 
+                        width: 80%; /* 按鈕變寬，好按 */
+                        max-width: 300px;
+                    }
+
+                    /* [Staff] 人員名單稍微縮小一點以免換行太亂，但保持清晰 */
+                    .staff-info-row { 
+                        font-size: 1.2rem !important; 
+                        line-height: 2; 
+                        width: 60%;
+                    }
+
+                    /* --- 3. Info Mode (模式C) 版面調整 --- */
+                    /* [Header] 頁籤改成 Stack (垂直堆疊) */
+                    .info-header { 
+                        flex: 0 0 auto;         /* [關鍵] 高度由內容撐開，不要被壓縮 */
+                        flex-direction: column; /* 垂直堆疊 */
+                        height: auto;           /* 取消任何固定高度 */
+                        padding: 0; /* [關鍵] 移除 padding，避免寬度計算錯誤 */
+                        width: 100%;
+                        border-bottom: 1px solid rgba(255,255,255,0.1);
+                    }
+                    
+                    .tab-btn { 
+                        flex: none;       /* 取消 flex 自動伸縮 */
+                        width: 100%;      /* 滿寬 */
+                        height: 50px;
+                        padding: 0;   /* 移除 padding，改用 flex 置中 */
+                        margin: 0;    /* [關鍵] 移除 margin，解決背景色超出問題 */
+                        
+                        font-size: 1.5rem; 
+                        border-right: none; /* 移除原本的右邊線 */
+                        border-bottom: 1px solid rgba(255,255,255,0.1); /* 改為底線分隔 */
+                        box-sizing: border-box;
+        
+                        /* [關鍵] 使用 Flexbox 讓文字完美垂直置中 */
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+
+                    /* [Active Tab] 字體變大修正 */
+                    .tab-btn.active {
+                        font-size: 1.3rem !important; /* [修正] 點擊後變大 */
+                        font-weight: 800;             /* 加粗 */
+                        color: #aaffdd;
+                        background: rgba(255,255,255,0.1); /* 背景色 */
+                        /* 由於 width 是 100% 且無 margin，背景色現在會剛好填滿格子 */
+                    }
+
+                    /* 關閉按鈕也變成一條橫的，放在最下面或最上面 */
+                    .close-info-btn {
+                        width: 100%;
+                        height: 50px;
+                        border-left: none;
+                        background: rgba(255, 50, 50, 0.15); 
+                        box-sizing: border-box;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+
+                    /* [Content] 上下距離加大 */
+                    .info-content-area { 
+                        flex: 1 1 auto; /* 自動伸縮 */
+                        overflow-y: auto; 
+                        padding: 0px; 
+                        position: relative;
+                        
+                        /* [關鍵] 讓內部的 wrapper 可以設定 height: 100% 來置中 */
+                        display: flex; 
+                        flex-direction: column;
+                    }
+
+                    /* 確保 tab-pane 佔滿空間 */
+                    .tab-pane {
+                        flex: 1;
+                        display: none;
+                        flex-direction: column; /* 讓內部元素垂直排列 */
+                    }
+                    .tab-pane.active {
+                        display: flex;          /* 開啟 Flex */
+                        flex: 1;                /* [關鍵] 高度自動撐滿 .info-content-area */
+                        flex-direction: column; 
+                        justify-content: center; /* [關鍵] 內容垂直置中 */
+                        align-items: center;     /* 內容水平置中 */
+                        min-height: 0;          /* 防止內容溢出計算錯誤 */
+                        flex-grow: 1;           /* [關鍵] 撐滿高度 */
+                    }
+
+                    /* [About Tab] 內容置中 */
+                    .about-content-wrapper { 
+                        width: 80%;
+                        margin: auto;
+                        /* [關鍵: 留白] 若內容太長，margin auto 會失效，這時 padding 保護邊界 */
+                        padding-top: 10vh;      /* 上方預留空間 (約 10-15%) */
+                        padding-bottom: 10vh;   /* 下方預留空間 */
+
+                        display: flex;
+                        flex-direction: column; 
+                        align-items: center;
+                        gap: 20px; 
+                        text-align: center;
+                    }
+                    
+                    .about-left-img { 
+                        width: 100%; 
+                        height: 200px; 
+                        flex: none; 
+                        margin: 0 auto; /* 圖片置中 */
+                    }
+                    
+                    .about-text {
+                        text-align: center; /* 內文強制置中 */
+                        font-size: 1.2rem;
+                        margin: 0; /* 移除多餘邊距 */
+                        line-height: 1.6;       /* 行高增加，閱讀更舒適 */
+                        color: #eee;
+                    }
+                    .about-text h3 {
+                        margin-top: 0;
+                        font-size: 2rem;
+                        margin-top: 0;
+                        margin-bottom: 15px;
+                        color: #aaffdd;
+                        text-shadow: 0 0 10px rgba(0,255,204,0.3);
+                    }
+
+                    /* [Carousel] Process & Tools - 單張放大顯示 */
+                    .carousel-container {
+                        /* 移除原本為了顯示左右鄰居的 padding */
+                        padding: 0 10%; /* [數學原理] (100% - 60%) / 2 = 20%。左右各留 20%，中間就是 60% */
+                        gap: 0; 
+                        scroll-padding: 0;
+                        /* 確保 Scroll Snap 運作 */
+                        scroll-snap-type: x mandatory;
+                    }
+
+                    .carousel-item {
+                        /* [修正] 使用 flex: 0 0 60% 比較穩定，避免 flex-grow (3) 造成比例跑掉 */
+                        flex: 0 0 80%; 
+                        width: 80%;
+                        height: auto; /* 高度自動或是指定 */
+                        aspect-ratio: 1 / 1; /* 保持正方形，或者依您原本 height: 60% */
+                        
+                        /* 置中關鍵 */
+                        scroll-snap-align: center;
+                        margin: 0; /* 確保沒有 margin 干擾計算 */
+                        
+                        /* 視覺效果 */
+                        opacity: 0.2; 
+                        transform: scale(0.8);
+                        transition: all 0.4s ease;
+                        border: none; 
+                        background: transparent;
+                        
+                        /* 讓內部內容置中 */
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                    }
+
+                    /* [關鍵] 當 JS 判定為 center-focus 時的樣式 */
+                    .carousel-item.center-focus {
+                        opacity: 1;          /* 完全顯示 */
+                        transform: scale(1.1); /* 正常大小 */
+                        z-index: 10;
+                    }
+
+                    /* Tool Logo 在單張模式下可以更大 */
+                    .tool-logo {
+                        // height: 480px; /* 圖片區塊加大 */
+                        width: 100%;
+                        height: 100%; /* 填滿 item */
+                        background: rgba(255,255,255,0.05);
+                    }
+                    
+                    .tool-name {
+                        font-size: 1.5rem;
+                        margin-top: 10px;
+                    }
+
+                    /* 左右箭頭調整 */
+                    .nav-arrow {
+                        background: rgba(0,0,0,0.3);
+                        border: none;
+                        font-size: 2rem;
+                        width: 60px;
+                        height: 100%; /* 變成滿高的觸控區 */
+                        top: 0;
+                        transform: none;
+                        border-radius: 0;
+                    }
+                    .arrow-left { left: 0; justify-content: flex-start; padding-left: 10px; }
+                    .arrow-right { right: 0; justify-content: flex-end; padding-right: 10px; }
+
+                    /* --- 4. Group Mode 調整 --- */
+                    .group-header-bar { padding: 10px; flex-shrink: 0;}
+                    .group-nav-btn { width: 44px; height: 44px; font-size: 1.5rem; }
+                    .group-content-body { flex: 1; overflow-y: auto; }
+                    .group-half-pane { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.15); min-height: 50%; flex: 0 0 auto; }
+                }
             `;
             document.head.appendChild(style);
 
@@ -1081,7 +1370,7 @@ window.addEventListener('DOMContentLoaded', async () => {
                 infoPanel = newPanel;
 
                 // --- 時間檢查 ---
-                const targetDate = new Date("January 10, 2026 9:00:00").getTime();
+                const targetDate = new Date("January 10, 2026 8:00:00").getTime();
                 const now = new Date().getTime();
                 const isTimeUp = now >= targetDate;
 
@@ -1621,4 +1910,3 @@ function generatePointDataOnMesh(mesh, pointCount) {
         pointPositions.push(worldPos.x, worldPos.y, worldPos.z);pointUVs.push(randomPointUV.x, randomPointUV.y);pointIndices.push(i);}
     return { positions: pointPositions, uvs: pointUVs, indices: pointIndices };
 }
-
