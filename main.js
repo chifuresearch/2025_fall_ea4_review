@@ -1334,7 +1334,7 @@ window.addEventListener('DOMContentLoaded', async () => {
             // [新增] 模式 C 的資料
             const infoContentData = {
                 about: {
-                    title: "Architecture as Information Interface",
+                    title: "Computational Syntax: From Data to Architecture",
                     content: "This studio explores the intersection of digital intelligence and physical space. We treat daily living events as data inputs, using computational tools to translate them into spatial mechanisms. Our goal is to redefine how architecture can respond, adapt, and inform its inhabitants through dynamic prototyping and algorithmic design.",
                     // [修改] 改為圖片陣列 (支援多張圖片)
                     images: [
@@ -1919,4 +1919,5 @@ function generatePointDataOnMesh(mesh, pointCount) {
         pointPositions.push(worldPos.x, worldPos.y, worldPos.z);pointUVs.push(randomPointUV.x, randomPointUV.y);pointIndices.push(i);}
     return { positions: pointPositions, uvs: pointUVs, indices: pointIndices };
 }
+
 
