@@ -826,7 +826,187 @@ window.addEventListener('DOMContentLoaded', async () => {
                     /* [新增] 讓背景圖片切換有淡入淡出感 (部分瀏覽器支援) */
                     transition: background-image 0.5s ease-in-out;
                 }
-                .about-text { flex: 1; font-size: 1.1rem; line-height: 1.8; color: #ddd; text-align: left; }
+                
+                /* --- [修改] About 圖片區塊樣式 --- */
+
+                /* --- [修改] About 圖片區塊樣式 (Desktop) --- */
+
+                /* --- [修正] About 圖片區塊樣式 (Desktop) --- */
+
+                .about-img-frame {
+                    position: relative;
+                    
+                    /* [寬度設定] 固定佔比 45% */
+                    flex: 0 0 45%; 
+                    width: 45%;
+                    
+                    /* [修正關鍵] 改用 aspect-ratio 鎖定長寬比 (例如 16:9 或 4:3) */
+                    /* 這樣瀏覽器會根據寬度自動算出高度，保證不會塌陷 */
+                    aspect-ratio: 16 / 9; 
+                    height: auto;        /* 讓高度自動計算 */
+                    
+                    min-height: 250px;   /* 最低高度防護 */
+                    
+                    border-radius: 8px;
+                    overflow: hidden;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+                    border: 1px solid rgba(255,255,255,0.1);
+                }
+
+                /* 確保內容水平排列 (如果還沒加的話請加上) */
+                .about-content-wrapper { 
+                    display: flex; 
+                    flex-direction: row; 
+                    align-items: center; 
+                    justify-content: center; 
+                    height: 100%; 
+                    gap: 50px; 
+                    max-width: 1200px; 
+                    margin: 0 auto; 
+                }
+
+                /* 修改原本的圖片 class，讓它填滿 frame */
+                .about-left-img {
+                    width: 100%;
+                    height: 100%;
+                    background-size: cover;
+                    background-position: center;
+                    transition: background-image 0.3s ease-in-out; /* 切換時的淡入淡出 */
+                }
+
+                /* 針對 About 專用的箭頭微調 (繼承 nav-arrow 但位置不同) */
+                .about-nav-arrow {
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    width: 50px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 2rem;
+                    color: rgba(255, 255, 255, 0.7);
+                    cursor: pointer;
+                    background: rgba(0, 0, 0, 0.3); /* 半透明黑底 */
+                    transition: all 0.3s;
+                    user-select: none;
+                    z-index: 5;
+                }
+                .about-nav-arrow:hover {
+                    background: rgba(0, 0, 0, 0.6);
+                    color: #00ffcc;
+                }
+                .about-arrow-left { left: 0; }
+                .about-arrow-right { right: 0; }
+
+                /* --- Mobile RWD 修正 (加在 @media (max-width: 768px) 裡面) --- */
+                /* 請將這段加到原本的手機版 CSS 區塊內，覆蓋原本對 .about-left-img 的設定 */
+                @media (max-width: 768px), (orientation: portrait) {
+                    /* 1. 外框設定 (維持您指定的高度 320px) */
+                    .about-img-frame {
+                        width: 100%;
+                        height: 320px; /* 固定高度 */
+                        min-height: auto;
+                        flex: none; 
+                        margin: 0 auto;
+                        /* 加深一點底色，讓上下留白看起來像相框設計，而不是破圖 */
+                        background: rgba(0, 0, 0, 0.3); 
+                        border-radius: 8px;
+                        position: relative;
+                        border: 1px solid rgba(255,255,255,0.1);
+                    }
+
+                    /* 2. 圖片本體設定 (關鍵修正) */
+                    .about-left-img {
+                        width: 100% !important;
+                        height: 100% !important; /* [修正關鍵] 強制撐滿外框的 320px */
+                        
+                        /* [修正關鍵] 讓背景圖在撐滿的空間內「垂直水平置中」 */
+                        background-position: center center !important;
+                        
+                        /* 保持 contain 以完整顯示文字內容 (若想填滿不留白但會裁切，改成 cover) */
+                        background-size: contain !important; 
+                        background-repeat: no-repeat !important;
+                        
+                        margin: 0 !important;
+                        flex: none !important;
+                        border-radius: 8px;
+                    }
+
+                    /* 3. 箭頭按鈕調整 */
+                    .about-nav-arrow {
+                        width: 40px;
+                        font-size: 1.5rem;
+                        background: transparent; 
+                        text-shadow: 0 0 5px rgba(0,0,0,0.8);
+                        z-index: 10;
+                    }
+                    /* [文字區塊 - 字體放大修正] */
+                    .about-text { 
+                        text-align: center; 
+                        
+                        /* [關鍵] 字體加大到 1.35rem (原本 1.1rem) */
+                        font-size: 1.35rem;      
+                        // line-height: 1.;       
+                        
+                        color: #eee;
+                        width: 100%;
+                        padding: 0 10px; /* 增加左右內距，避免貼邊 */
+                    }
+                    
+                    .about-text h3 {
+                        /* [關鍵] 標題加大到 1.8rem (原本 1.6rem) */
+                        font-size: 1.8rem;      
+                        text-align: center; 
+                        margin-top: 0;
+                        margin-bottom: 25px; 
+                        color: #aaffdd;
+                        text-shadow: 0 0 10px rgba(0,255,204,0.3);
+                    }
+
+                    /* --- [Carousel] --- */
+                    .carousel-container {
+                        width: 100%; padding: 0 20%; gap: 0; 
+                        scroll-padding: 0; scroll-snap-type: x mandatory;
+                        flex: 1; display: flex; align-items: center; 
+                    }
+
+                    .carousel-item {
+                        flex: 0 0 60%; width: 60%; height: auto; aspect-ratio: 1 / 1; 
+                        scroll-snap-align: center; margin: 0; 
+                        opacity: 0.2; transform: scale(0.8); transition: all 0.4s ease;
+                        border: none; background: transparent;
+                        display: flex; flex-direction: column; align-items: center; justify-content: center;
+                    }
+
+                    .carousel-item.center-focus { opacity: 1; transform: scale(1.1); z-index: 10; }
+                    .tool-logo { width: 100%; height: 100%; background: rgba(255,255,255,0.05); border-radius: 8px; }
+                    .tool-name { font-size: 1.2rem; margin-top: 10px; }
+                    .nav-arrow { font-size: 1.5rem; width: 40px; background: rgba(0,0,0,0.2); }
+                    
+                    .about-nav-arrow {
+                        width: 40px;
+                        font-size: 1.5rem;
+                        background: transparent; 
+                        text-shadow: 0 0 5px rgba(0,0,0,0.8);
+                        z-index: 10;
+                    }
+
+                    /* --- 3. pane 調整 --- */
+                    .group-title { font-size: 1.45rem; }
+                    .pane-header { font-size: 1.35rem; padding: 50px}
+                    .pane-project-title { font-size: 1.35rem;  }
+                    .pane-author { font-size: 1.35rem; }
+
+                    /* --- 4. Group Mode 調整 --- */
+                    .group-header-bar { padding: 10px; flex-shrink: 0; }
+                    .group-nav-btn { width: 40px; height: 40px; font-size: 1.2rem; }
+                    .group-content-body { flex: 1; overflow-y: auto; }
+                    .group-half-pane { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.15); min-height: 50%; flex: 0 0 auto; }
+                }
+
+                .about-text { flex: 1; font-size: 1.25rem; line-height: 1.8; color: #ddd; text-align: left; }
+                .about-text h3 { flex: 1; font-size: 1.8rem; line-height: 1.8; color: #aaffdd;
+                        text-shadow: 0 0 10px rgba(0,255,204,0.3); text-align: center; }
                 .carousel-wrapper { position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
                 .carousel-container { display: flex; overflow-x: auto; gap: 40px; padding: 0 calc(50% - 150px); scroll-snap-type: x mandatory; height: 100%; align-items: center; scrollbar-width: none; width: 100%; font-size: 0.8rem}
                 .carousel-item { flex: 0 0 300px; height: 400px; box-sizing: border-box; flex-shrink: 0; scroll-snap-align: center; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 30px; text-align: center; transition: all 0.4s; display: flex; flex-direction: column; align-items: center; justify-content: center; transform: scale(0.9); opacity: 0.5; filter: blur(2px); }
@@ -1069,7 +1249,7 @@ window.addEventListener('DOMContentLoaded', async () => {
                         display: flex;
                         flex-direction: column; 
                         align-items: center;
-                        gap: 20px; 
+                        gap: 3vh; 
                         text-align: center;
                     }
                     
@@ -1078,22 +1258,6 @@ window.addEventListener('DOMContentLoaded', async () => {
                         height: 200px; 
                         flex: none; 
                         margin: 0 auto; /* 圖片置中 */
-                    }
-                    
-                    .about-text {
-                        text-align: center; /* 內文強制置中 */
-                        font-size: 1.2rem;
-                        margin: 0; /* 移除多餘邊距 */
-                        line-height: 1.6;       /* 行高增加，閱讀更舒適 */
-                        color: #eee;
-                    }
-                    .about-text h3 {
-                        margin-top: 0;
-                        font-size: 2rem;
-                        margin-top: 0;
-                        margin-bottom: 15px;
-                        color: #aaffdd;
-                        text-shadow: 0 0 10px rgba(0,255,204,0.3);
                     }
 
                     /* [Carousel] Process & Tools - 單張放大顯示 */
@@ -1171,8 +1335,86 @@ window.addEventListener('DOMContentLoaded', async () => {
                     .group-content-body { flex: 1; overflow-y: auto; }
                     .group-half-pane { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.15); min-height: 50%; flex: 0 0 auto; }
                 }
+                
+                /* --- Loading Screen --- */
+                #loading-screen {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: #05050a; /* 純黑帶一點點藍，與背景融合 */
+                    z-index: 9999; /* 確保在最上層 */
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    transition: opacity 0.8s ease-out; /* 淡出動畫 */
+                }
+
+                .loader-text {
+                    font-family: 'Courier New', monospace;
+                    color: #00ffcc;
+                    font-size: 1.2rem;
+                    letter-spacing: 3px;
+                    margin-bottom: 20px;
+                    text-transform: uppercase;
+                    text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+                    animation: blink-text 1.5s infinite alternate;
+                }
+
+                .loader-bar-bg {
+                    width: 200px;
+                    height: 2px;
+                    background: rgba(255, 255, 255, 0.1);
+                    position: relative;
+                    overflow: hidden;
+                }
+
+                .loader-bar-fill {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 100%;
+                    width: 0%;
+                    background: #00ffcc;
+                    box-shadow: 0 0 10px #00ffcc;
+                    animation: load-progress 2s ease-in-out infinite;
+                }
+
+                @keyframes blink-text {
+                    from { opacity: 0.6; }
+                    to { opacity: 1; }
+                }
+
+                @keyframes load-progress {
+                    0% { width: 0%; left: 0; }
+                    50% { width: 60%; left: 20%; }
+                    100% { width: 100%; left: 100%; }
+                }
+
+                /* 隱藏狀態 */
+                #loading-screen.hidden {
+                    opacity: 0;
+                    pointer-events: none;
+                }
             `;
             document.head.appendChild(style);
+
+            // --- [新增] 建立 Loading 畫面 ---
+            const loadingScreen = document.createElement('div');
+            loadingScreen.id = 'loading-screen';
+            loadingScreen.innerHTML = `
+                <div class="loader-text">SYSTEM INITIALIZING...</div>
+                <div class="loader-bar-bg">
+                    <div class="loader-bar-fill"></div>
+                </div>
+            `;
+            document.body.appendChild(loadingScreen);
+
+
+
+
 
             let infoPanel = document.createElement('div');
             infoPanel.id = 'info-panel';
@@ -1586,30 +1828,15 @@ window.addEventListener('DOMContentLoaded', async () => {
                         });
                     }
                 }
-                // --- C. Info Mode (保持不變) ---
+                // --- C. Info Mode (修正後：手動切換圖片) ---
                 else if (data.type === 'info') {
                     infoPanel.classList.add('mode-info');
-                    
-                    // ... (Info Mode 的 HTML 生成與邏輯保持與上一個版本一致) ...
-                    // 為節省篇幅，這裡省略重複的 Info Mode 代碼
-                    // 請直接複製上一個回答中的 Info Mode 區塊到這裡
-                    
-                    // 為了完整性，這裡簡單列出結構：
-                    // const renderTools = ...
-                    // const renderProcess = ...
-                    // const renderDiagram = ...
-                    // infoPanel.innerHTML = ...
-                    // About Carousel Logic ...
-                    // Tabs Logic ...
-                    // Close Logic ...
-                    // setupCarouselNav ...
-                    
-                    // (如果您需要這部分的完整代碼，請讓我知道，我可以再貼一次)
-                    // 這裡我將放入簡化的佔位符，實際請使用上一個版本的 Info 代碼
+
+                    // 生成 Tools 與 Process 的 HTML (保持不變)
                     const renderTools = infoContentData.tools.map(t => `<div class="carousel-item"><div class="tool-logo"><img src="${t.image}"></div><div class="tool-name">${t.name}</div><a href="${t.link}" target="_blank" class="item-link">Learn More</a></div>`).join('');
                     const renderProcess = infoContentData.process.map(p => `<div class="carousel-item"><div class="tool-logo"><img src="${p.image}"></div><div class="tool-name">${p.name}</div></div>`).join('');
-                    // const renderDiagram = infoContentData.teaching.map(n => `<div class="diagram-node"><div class="node-title">${n.step}</div></div>`).join('');
-                    
+
+                    // [修改] HTML 結構：About 圖片區加入箭頭
                     infoPanel.innerHTML = `
                         <div class="info-header">
                             <div class="tab-btn active" data-tab="about">About</div>
@@ -1618,25 +1845,79 @@ window.addEventListener('DOMContentLoaded', async () => {
                             <div class="close-info-btn" id="close-info">✕</div>
                         </div>
                         <div class="info-content-area">
-                            <div id="tab-about" class="tab-pane active"><div class="about-content-wrapper"><div id="about-carousel-img" class="about-left-img" style="background-image: url('${infoContentData.about.images[0]}');"></div><div class="about-text"><h3>${infoContentData.about.title}</h3><p>${infoContentData.about.content}</p></div></div></div>
-                            <div id="tab-tools" class="tab-pane"><div class="carousel-wrapper"><div class="nav-arrow arrow-left" id="btn-left-tools">❮</div><div class="carousel-container" id="tools-carousel">${renderTools}</div><div class="nav-arrow arrow-right" id="btn-right-tools">❯</div></div></div>
-                            <div id="tab-process" class="tab-pane"><div class="carousel-wrapper"><div class="nav-arrow arrow-left" id="btn-left-prod">❮</div><div class="carousel-container" id="prod-carousel">${renderProcess}</div><div class="nav-arrow arrow-right" id="btn-right-prod">❯</div></div></div>
+                            <div id="tab-about" class="tab-pane active">
+                                <div class="about-content-wrapper">
+                                    <div class="about-img-frame">
+                                        <div class="about-nav-arrow about-arrow-left" id="about-btn-prev">❮</div>
+                                        <div id="about-carousel-img" class="about-left-img" style="background-image: url('${infoContentData.about.images[0]}');"></div>
+                                        <div class="about-nav-arrow about-arrow-right" id="about-btn-next">❯</div>
+                                    </div>
+                                    
+                                    <div class="about-text">
+                                        <h3>${infoContentData.about.title}</h3>
+                                        <p>${infoContentData.about.content}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="tab-tools" class="tab-pane">
+                                <div class="carousel-wrapper">
+                                    <div class="nav-arrow arrow-left" id="btn-left-tools">❮</div>
+                                    <div class="carousel-container" id="tools-carousel">${renderTools}</div>
+                                    <div class="nav-arrow arrow-right" id="btn-right-tools">❯</div>
+                                </div>
+                            </div>
+
+                            <div id="tab-process" class="tab-pane">
+                                <div class="carousel-wrapper">
+                                    <div class="nav-arrow arrow-left" id="btn-left-prod">❮</div>
+                                    <div class="carousel-container" id="prod-carousel">${renderProcess}</div>
+                                    <div class="nav-arrow arrow-right" id="btn-right-prod">❯</div>
+                                </div>
+                            </div>
                         </div>
                     `;
-                    
-                    // About Carousel
+
+                    // [修改] About 圖片切換邏輯 (改為手動，移除 setInterval)
                     const aboutImages = infoContentData.about.images;
                     if (aboutImages && aboutImages.length > 1) {
                         let currentImgIndex = 0;
                         const imgElement = document.getElementById('about-carousel-img');
+                        const btnPrev = document.getElementById('about-btn-prev');
+                        const btnNext = document.getElementById('about-btn-next');
+
+                        // 預先載入圖片 (避免切換時閃爍)
                         aboutImages.forEach(src => { const img = new Image(); img.src = src; });
-                        aboutCarouselInterval = setInterval(() => {
-                            currentImgIndex = (currentImgIndex + 1) % aboutImages.length;
-                            if(imgElement) imgElement.style.backgroundImage = `url('${aboutImages[currentImgIndex]}')`;
-                        }, 3000);
+
+                        const updateAboutImage = () => {
+                            if(imgElement) {
+                                // 使用 CSS class 淡入淡出 (可選)
+                                imgElement.style.opacity = 0.5; // 切換瞬間變暗一點
+                                setTimeout(() => {
+                                    imgElement.style.backgroundImage = `url('${aboutImages[currentImgIndex]}')`;
+                                    imgElement.style.opacity = 1;
+                                }, 150);
+                            }
+                        };
+
+                        if (btnPrev && btnNext) {
+                            btnPrev.addEventListener('click', (e) => {
+                                e.stopPropagation();
+                                // 循環切換：如果小於 0 則跳到最後一張
+                                currentImgIndex = (currentImgIndex - 1 + aboutImages.length) % aboutImages.length;
+                                updateAboutImage();
+                            });
+
+                            btnNext.addEventListener('click', (e) => {
+                                e.stopPropagation();
+                                // 循環切換
+                                currentImgIndex = (currentImgIndex + 1) % aboutImages.length;
+                                updateAboutImage();
+                            });
+                        }
                     }
 
-                    // Tabs
+                    // Tabs 切換邏輯 (保持不變)
                     const tabs = infoPanel.querySelectorAll('.tab-btn');
                     tabs.forEach(tab => {
                         tab.addEventListener('click', (e) => {
@@ -1645,6 +1926,8 @@ window.addEventListener('DOMContentLoaded', async () => {
                             e.target.classList.add('active');
                             const targetId = e.target.getAttribute('data-tab');
                             document.getElementById('tab-' + targetId).classList.add('active');
+                            
+                            // 確保 Carousel 在 Tab 顯示後能正確計算寬度
                             setTimeout(() => {
                                 if (targetId === 'tools') setupCarouselNav('tools-carousel', 'btn-left-tools', 'btn-right-tools');
                                 if (targetId === 'process') setupCarouselNav('prod-carousel', 'btn-left-prod', 'btn-right-prod');
@@ -1653,9 +1936,10 @@ window.addEventListener('DOMContentLoaded', async () => {
                     });
 
                     document.getElementById('close-info').addEventListener('click', () => { isInfoMode = false; currentViewIndex = 1; transitionToView(currentViewIndex); });
-                    
-                    // Carousel Nav Logic (Compact)
+
+                    // Carousel Nav Logic (Compact - 保持不變)
                     const setupCarouselNav = (elementId, leftBtnId, rightBtnId) => {
+                        // ... (這裡的程式碼維持原樣，不需要動) ...
                         const container = document.getElementById(elementId);
                         const leftBtn = document.getElementById(leftBtnId);
                         const rightBtn = document.getElementById(rightBtnId);
@@ -1898,7 +2182,21 @@ window.addEventListener('DOMContentLoaded', async () => {
     }
 
     createScene().then(scene => {
-        engine.runRenderLoop(() => { if (scene) { scene.render(); } });
+        // 1. 開始渲染迴圈
+        engine.runRenderLoop(() => { 
+            if (scene) { scene.render(); } 
+        });
+
+        // 2. [新增] 移除 Loading 畫面 (延遲一點點讓畫面更順暢)
+        setTimeout(() => {
+            const loader = document.getElementById('loading-screen');
+            if (loader) {
+                loader.classList.add('hidden'); // 觸發 CSS 淡出
+                // 等淡出動畫結束後，從 DOM 移除
+                setTimeout(() => { loader.remove(); }, 800);
+            }
+        }, 500); // 可自行調整這裡的毫秒數，控制最少顯示時間
+
         window.addEventListener('resize', () => engine.resize());
     });
 });
