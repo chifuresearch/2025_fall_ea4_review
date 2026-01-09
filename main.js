@@ -1379,7 +1379,7 @@ window.addEventListener('DOMContentLoaded', async () => {
                 infoPanel = newPanel;
 
                 // --- 時間檢查 ---
-                const targetDate = new Date("January 10, 2026 8:00:00").getTime();
+                const targetDate = new Date("January 09, 2026 18:00:00").getTime();
                 const now = new Date().getTime();
                 const isTimeUp = now >= targetDate;
 
@@ -1919,3 +1919,4 @@ function generatePointDataOnMesh(mesh, pointCount) {
         pointPositions.push(worldPos.x, worldPos.y, worldPos.z);pointUVs.push(randomPointUV.x, randomPointUV.y);pointIndices.push(i);}
     return { positions: pointPositions, uvs: pointUVs, indices: pointIndices };
 }
+
