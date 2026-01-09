@@ -826,6 +826,8 @@ window.addEventListener('DOMContentLoaded', async () => {
                     /* [新增] 讓背景圖片切換有淡入淡出感 (部分瀏覽器支援) */
                     transition: background-image 0.5s ease-in-out;
                 }
+
+
                 
                 /* --- [修改] About 圖片區塊樣式 --- */
 
@@ -1002,6 +1004,17 @@ window.addEventListener('DOMContentLoaded', async () => {
                     .group-nav-btn { width: 40px; height: 40px; font-size: 1.2rem; }
                     .group-content-body { flex: 1; overflow-y: auto; }
                     .group-half-pane { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.15); min-height: 50%; flex: 0 0 auto; }
+                
+                    .pane-canvas-area {
+                        /* 強制給一個高度，讓 p5.js 有空間顯示 */
+                        height: 350px; 
+                        min-height: 350px;
+                        width: 100%;
+                        flex: none; /* 不要被壓縮 */
+                        padding: 10px; /* 內縮一點 */
+                        background: rgba(0,0,0,0.2);
+                        margin-bottom: 20px; /* 與下一個區塊分開 */
+                    }
                 }
 
                 .about-text { flex: 1; font-size: 1.25rem; line-height: 1.8; color: #ddd; text-align: left; }
@@ -1329,11 +1342,47 @@ window.addEventListener('DOMContentLoaded', async () => {
                     .arrow-left { left: 0; justify-content: flex-start; padding-left: 10px; }
                     .arrow-right { right: 0; justify-content: flex-end; padding-right: 10px; }
 
-                    /* --- 4. Group Mode 調整 --- */
-                    .group-header-bar { padding: 10px; flex-shrink: 0;}
-                    .group-nav-btn { width: 44px; height: 44px; font-size: 1.5rem; }
-                    .group-content-body { flex: 1; overflow-y: auto; }
-                    .group-half-pane { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.15); min-height: 50%; flex: 0 0 auto; }
+                    /* --- 4. Group Mode (p5js 高度修正核心) --- */
+    
+                    .group-header-bar { padding: 15px; flex-shrink: 0; }
+                    .group-nav-btn { width: 50px; height: 50px; font-size: 2rem; }
+                    .group-title { font-size: 1.6rem; }
+                    
+                    .group-content-body { flex: 1; overflow-y: auto; display: block; /* 確保垂直排列 */ }
+                    
+                    .group-half-pane { 
+                        /* [關鍵] 讓它自動長高，不要被壓縮 */
+                        height: auto; 
+                        min-height: auto; 
+                        flex: none; /* 不要使用 flex 比例分配 */
+                        
+                        border-right: none; 
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.15); 
+                        padding-bottom: 20px;
+                    }
+                    
+                    .pane-header { height: auto; padding: 20px; min-height: 100px; }
+                    .pane-project-title { font-size: 1.6rem; } 
+                    .pane-author { font-size: 1.2rem; margin-top: 10px; }
+                    
+                    /* [關鍵] 強制給予 p5js 容器一個固定且足夠的高度 */
+                    .pane-canvas-area {
+                        width: 100%;
+                        height: 28vh !important;     /* 強制高度 */
+                        min-height: 28vh !important; /* 確保不被壓縮 */
+                        flex: none;
+                        padding: 0 10px 10px 10px;    /* 稍微內縮 */
+                        box-sizing: border-box;
+                    }
+                    
+                    /* 確保內部的 iframe 或 placeholder 填滿這個高度 */
+                    .pane-canvas-area iframe,
+                    .iframe-placeholder {
+                        width: 100% !important;
+                        height: 100% !important;
+                        border-radius: 4px;
+                        border: 1px solid rgba(255,255,255,0.2);
+                    }
                 }
                 
                 /* --- Loading Screen --- */
@@ -1397,6 +1446,51 @@ window.addEventListener('DOMContentLoaded', async () => {
                 #loading-screen.hidden {
                     opacity: 0;
                     pointer-events: none;
+                }
+                
+                /* --- Iframe Click-to-Load 樣式 --- */
+                .iframe-placeholder {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    background: rgba(0, 255, 204, 0.05); /* 微弱的綠色底 */
+                    border: 1px dashed rgba(0, 255, 204, 0.3);
+                    cursor: pointer;
+                    transition: all 0.3s;
+                    border-radius: 4px;
+                }
+
+                .iframe-placeholder:hover {
+                    background: rgba(0, 255, 204, 0.15);
+                    border-color: #00ffcc;
+                    box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+                }
+
+                .placeholder-icon {
+                    font-size: 3rem;
+                    color: #00ffcc;
+                    margin-bottom: 10px;
+                    text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+                }
+
+                .placeholder-text {
+                    font-family: 'Courier New', monospace;
+                    color: #fff;
+                    font-size: 0.9rem;
+                    letter-spacing: 1px;
+                    text-transform: uppercase;
+                }
+
+                /* 確保 iframe 在手機上能正常滑動 (如果 p5 支援) */
+                .pane-canvas-area iframe {
+                    width: 100%;
+                    height: 100%;
+                    border: none;
+                    /* 解決手機 iframe 互動問題 */
+                    touch-action: none; 
                 }
             `;
             document.head.appendChild(style);
@@ -1747,28 +1841,49 @@ window.addEventListener('DOMContentLoaded', async () => {
                     }
                 }
                 
-                // --- B. Group Mode (強健防卡死版) ---
+                // --- B. Group Mode (修正版：電腦自動載入 / 手機手動載入) ---
                 else if (data.type === 'group') {
                     infoPanel.classList.add('mode-group');
 
                     const nextIndex = currentViewIndex + 1;
                     const prevIndex = currentViewIndex - 1;
-                    
-                    // 檢查是否有資料 (決定按鈕是否亮起)
                     const hasNext = viewContentData[nextIndex] !== undefined;
                     const hasPrev = viewContentData[prevIndex] !== undefined;
 
-                    const createHalfHTML = (member) => `
-                        <div class="group-half-pane">
-                            <div class="pane-header">
-                                <div class="pane-project-title">${member.title}</div>
-                                <div class="pane-author">${member.author}</div>
+                    // [新增] 判斷是否為手機 (寬度小於等於 768px)
+                    const isMobile = window.innerWidth <= 768;
+
+                    const createHalfHTML = (member, index) => {
+                        // 根據裝置決定內容：手機顯示按鈕，電腦直接顯示 iframe
+                        let contentHTML = '';
+                        
+                        if (member.p5Url) {
+                            if (isMobile) {
+                                // [手機版] 顯示載入按鈕 (Click-to-Load)
+                                contentHTML = `
+                                    <div class="iframe-placeholder" data-url="${member.p5Url}" data-target="p5-container-${index}">
+                                        <div class="placeholder-icon">▶</div>
+                                        <div class="placeholder-text">Load Interaction</div>
+                                    </div>
+                                `;
+                            } else {
+                                // [電腦版] 直接載入 iframe (Auto-Load)
+                                contentHTML = `<iframe src="${member.p5Url}" allowfullscreen scrolling="no"></iframe>`;
+                            }
+                        }
+
+                        return `
+                            <div class="group-half-pane">
+                                <div class="pane-header">
+                                    <div class="pane-project-title">${member.title}</div>
+                                    <div class="pane-author">${member.author}</div>
+                                </div>
+                                <div class="pane-canvas-area" id="p5-container-${index}">
+                                    ${contentHTML}
+                                </div>
                             </div>
-                            <div class="pane-canvas-area">
-                                ${member.p5Url ? `<iframe src="${member.p5Url}" allowfullscreen></iframe>` : ''}
-                            </div>
-                        </div>
-                    `;
+                        `;
+                    };
 
                     infoPanel.innerHTML = `
                         <div class="group-header-bar">
@@ -1777,56 +1892,54 @@ window.addEventListener('DOMContentLoaded', async () => {
                             <div class="group-nav-btn ${hasNext ? '' : 'disabled'}" id="grp-btn-next">❯</div>
                         </div>
                         <div class="group-content-body">
-                            ${createHalfHTML(data.member1)}
-                            ${createHalfHTML(data.member2)}
+                            ${createHalfHTML(data.member1, 1)}
+                            ${createHalfHTML(data.member2, 2)}
                         </div>
                     `;
 
-                    // --- 按鈕事件綁定 ---
+                    // [手機版專用] 綁定載入按鈕事件
+                    // 只有在 isMobile 為 true 時，DOM 裡才會有 .iframe-placeholder，這段程式碼才會生效
+                    if (isMobile) {
+                        setTimeout(() => {
+                            const placeholders = infoPanel.querySelectorAll('.iframe-placeholder');
+                            placeholders.forEach(btn => {
+                                btn.addEventListener('click', (e) => {
+                                    e.stopPropagation();
+                                    const url = btn.getAttribute('data-url');
+                                    const targetId = btn.getAttribute('data-target');
+                                    const container = document.getElementById(targetId);
+                                    
+                                    if (container && url) {
+                                        container.innerHTML = `<iframe src="${url}" allowfullscreen scrolling="no"></iframe>`;
+                                    }
+                                });
+                                btn.addEventListener('touchstart', (e) => { e.stopPropagation(); }, { passive: true });
+                            });
+                        }, 100);
+                    }
+
+                    // --- (以下按鈕切換邏輯保持不變) ---
                     const btnPrev = document.getElementById('grp-btn-prev');
                     const btnNext = document.getElementById('grp-btn-next');
-
-                    // 定義一個通用的切換函式，包含安全機制
+                    
                     const safeTransition = (targetIndex) => {
-                        // [關鍵修正] 強制解鎖動畫狀態，防止因滾輪誤觸導致按鈕無效
                         isAnimating = false; 
-
-                        // 判斷 3D 場景中是否有對應的相機
                         if (targetIndex < navigationNodes.length) {
-                            console.log("Attempting camera transition to:", targetIndex);
                             transitionToView(targetIndex);
-
-                            // [關鍵修正] 安全網：如果相機動畫 500ms 後還沒完成 (或沒觸發 callback)，強制切換內容
-                            // 這能解決 GLB 節點損壞或動畫卡住的問題
                             setTimeout(() => {
                                 if (currentViewIndex !== targetIndex) {
-                                    console.warn("Animation lag detected, forcing panel update.");
                                     currentViewIndex = targetIndex;
                                     showPanel(currentViewIndex);
                                 }
                             }, 500);
-                            
                         } else {
-                            // 沒有相機節點，直接切換內容
-                            console.log("No camera node, switching content only.");
                             currentViewIndex = targetIndex;
                             showPanel(currentViewIndex);
                         }
                     };
 
-                    if (btnPrev && hasPrev) {
-                        btnPrev.addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            safeTransition(prevIndex);
-                        });
-                    }
-
-                    if (btnNext && hasNext) {
-                        btnNext.addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            safeTransition(nextIndex);
-                        });
-                    }
+                    if (btnPrev && hasPrev) { btnPrev.addEventListener('click', (e) => { e.stopPropagation(); safeTransition(prevIndex); }); }
+                    if (btnNext && hasNext) { btnNext.addEventListener('click', (e) => { e.stopPropagation(); safeTransition(nextIndex); }); }
                 }
                 // --- C. Info Mode (修正後：手動切換圖片) ---
                 else if (data.type === 'info') {
