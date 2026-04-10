@@ -63,3 +63,21 @@ a:visited {
     background-color: #218838;
     border-color: #1e7e34;
 }
+
+/* 修改：確保 iframe 填滿，但圖片保持比例 */
+.pane-canvas-area iframe {
+    width: 100% !important;
+    height: 100% !important;
+    border: none;
+    display: block;
+}
+
+/* 新增：如果是單純圖片（非 iframe），不強制縮放，保持原圖比例置中 */
+.pane-canvas-area img {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    width: auto;
+    height: auto;
+    object-fit: contain; /* 關鍵：保持比例不變形 */
+    display: block;
+}

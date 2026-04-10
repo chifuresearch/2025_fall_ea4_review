@@ -660,9 +660,9 @@ window.addEventListener('DOMContentLoaded', async () => {
                 .bottom-project-title {
                     font-family: 'Courier New', monospace;
                     font-size: 1.3rem;
-                    color: #fff;
                     letter-spacing: 1px;
-                    text-shadow: 0 0 5px rgba(255,255,255,0.5);
+                    color: #aaffdd;
+                    text-shadow: 0 0 8px rgba(0, 255, 180, 0.7);
                     font-weight: bold;
                 }
 
@@ -1522,72 +1522,87 @@ window.addEventListener('DOMContentLoaded', async () => {
                 0: {
                     type: 'cover',
                     // [上] 小字資訊
-                    topInfo: "2026.01.10 10:00 | TKUA STAIRSROOM (G507)",
+                    topInfo: "2026.04.13 10:00 | TKUA STAIRSROOM (G507)",
                     // [中] 主標題
-                    mainTitle: "EA4 FINAL REVIEW", 
+                    mainTitle: "淡江大學建築學系四年級", 
                     // [下] 底部資訊
-                    studioName: "IIA STUDIO", // 縮寫符合圖片風格
-                    projectTitle: "re: Model Your Daily Life",
-                    btnText: "In Progress ..", // 箭頭直接寫在字串裡比較好控
+                    studioName: "智慧資訊建築 工作室", // 縮寫符合圖片風格
+                    projectTitle: "數位時代 的 Piranesi 主義",
+                    btnText: "等待時間解碼 ..", // 箭頭直接寫在字串裡比較好控
                     
                     // Staff 資訊 (放在最下面)
-                    advisor: "Advisor: Hsiao, Chi-Fu",
-                    staff: "Staff: Yi-Ting | Ying-Hua | Li-Hong | Ting-Yu | Hao-Lun | Zhi-Shan"
+                    advisor: "工作室主持人：蕭吉甫",
+                    staff: "組員：廖苡均 | 林宜勳 | 鄭語妡 | 林浩德 | 陳稼軒 | 許聖浩 | 王千兆"
                 },
                 1: {
                     type: 'group',
-                    groupTitle: "Event Translation & Dynamic Mechanisms",
+                    groupTitle: "1 = 能量 的 轉譯與再現技術之研究",
                     member1: {
-                        author: "Yi-Ting",
-                        title: "Translating Music Signals into Dynamic Spatial Mechanisms",
-                        p5Url: "https://editor.p5js.org/chifuresearch/full/O966wnmEP" 
+                        author: "林 浩德",
+                        title: "生物電訊號轉譯於即興音樂創作與空間展演的互動架構研究",
+                        p5Url: "https://editor.p5js.org/410360530/full/qmNLeH0qw"
                     },
                     member2: {
-                        author: "Ying-Hua",
-                        title: "Dynamic Response of Discrete Skin Arrays to External Perturbations",
-                        p5Url: "https://editor.p5js.org/chifuresearch/full/OaQXwMr-v"
+                        author: "鄭 語妡",
+                        title: "環境中群聚能量的空間轉譯模式",
+                        p5Url: "https://editor.p5js.org/jjjn0309/full/yczXvzFgu"
                     }
                 },
                 2: {
                     type: 'group',
-                    groupTitle: "Energy Pulse & Light/Shadow Expression",
+                    groupTitle: "2 = 基於互動模式 的 設計方法研究",
                     member1: {
-                        author: "Li-Hong",
-                        title: "Audio Energy Translation for Atmospheric Light and Shadow Creation",
-                        p5Url: "https://editor.p5js.org/chifuresearch/full/oLuJA3MBC"
+                        author: "廖 苡均",
+                        title: "光影景觀中多維度時間的敘事地景",
+                        image: "assests/1142/YI-CHUN_940x700.png"
                     },
                     member2: {
-                        author: "Ting-Yu",
-                        title: "Visualizing Fluid Potential Energy as Spatial Guidance Cues",
-                        p5Url: "https://editor.p5js.org/chifuresearch/full/_mmx_4MSw"
+                        author: "陳 稼軒",
+                        title: "結合行為感測與有機物響應的互動藝術",
+                        image: "assests/1142/CHIA-HSUAN_940x700.png"
                     }
                 },
                 3: {
                     type: 'group',
-                    groupTitle: "Research on Light Interface & Warp Shaders",
+                    groupTitle: "3 = 基於單元特徵 的 組織部署方法",
                     member1: {
-                        author: "Hao-Lun",
-                        title: "Applying Noise Warp Shaders to Dynamic Flexible Surface Projection",
-                        p5Url: "https://editor.p5js.org/chifuresearch/full/VR-V2eKMg"
+                        author: "林 宜勳",
+                        title: "基於環境參數驅動的異質介面縫補策略",
+                        image: "assests/1142/YI-HSUN_940x700.png" 
                     },
                     member2: {
-                        author: "Zhi-Shan",
-                        title: "Optical Deflection in Heterogeneous Transparent Interfaces for Fluid Light Effects",
-                        p5Url: "https://editor.p5js.org/chifuresearch/full/N_I8gjMPq"
+                        author: "王 千兆",
+                        title: "基於片狀材料形變量控制輕質自支撐結構內力分佈的拓樸優化方法",
+                        image: "assests/1142/CHIEN-CHAO_940x700.png"
+                    }
+                },
+                4: {
+                    type: 'group',
+                    groupTitle: "3 = 基於單元特徵 的 組織部署方法",
+                    member1: {
+                        author: "許 聖浩",
+                        title: "細部構造介入歷時性複合材料脈絡層構現象的設計方法",
+                        image: "assests/1142/SHENG-HAO_940x700.png"
+                    },
+                    member2: {
+                        author: "",
+                        title: "",
+                        p5Url: "" 
                     }
                 }
+                
             };
 
             // [新增] 時間到之後要顯示的資料
             const postEventCoverData = {
                 type: 'cover',
-                topInfo: "Tamkang University EA4",
-                mainTitle: "re: Model Your Daily Life", 
-                studioName: "IIA STUDIO", 
-                projectTitle: "2026 Fall Introduction",
-                btnText: "Explore Further ➔", 
-                advisor: "Advisor: Hsiao, Chi-Fu",
-                staff: "Staff: Yi-Ting | Ying-Hua | Li-Hong | Ting-Yu | Hao-Lun | Zhi-Shan"
+                topInfo: "淡江大學建築學系 四年級",
+                mainTitle: "數位時代 的 Piranesi 主義", 
+                studioName: "智慧資訊建築 工作室", 
+                projectTitle: "2026 Spring IIA Studio",
+                btnText: "本學期組員 ➔", 
+                advisor: "工作室主持人：蕭吉甫",
+                staff: "組員：廖苡均 | 林宜勳 | 鄭語妡 | 林浩德 | 陳稼軒 | 許聖浩 | 王千兆"
             };
 
             // [新增] Matrix 亂碼特效函式
@@ -1856,20 +1871,21 @@ window.addEventListener('DOMContentLoaded', async () => {
                     const createHalfHTML = (member, index) => {
                         // 根據裝置決定內容：手機顯示按鈕，電腦直接顯示 iframe
                         let contentHTML = '';
-                        
+                        const isImageMode = !!member.image;
+
                         if (member.p5Url) {
                             if (isMobile) {
-                                // [手機版] 顯示載入按鈕 (Click-to-Load)
                                 contentHTML = `
                                     <div class="iframe-placeholder" data-url="${member.p5Url}" data-target="p5-container-${index}">
                                         <div class="placeholder-icon">▶</div>
                                         <div class="placeholder-text">Load Interaction</div>
-                                    </div>
-                                `;
+                                    </div>`;
                             } else {
-                                // [電腦版] 直接載入 iframe (Auto-Load)
                                 contentHTML = `<iframe src="${member.p5Url}" allowfullscreen scrolling="no"></iframe>`;
                             }
+                        } 
+                        else if (member.image) {
+                            contentHTML = `<img src="${member.image}" alt="${member.title}">`;
                         }
 
                         return `
@@ -1878,7 +1894,7 @@ window.addEventListener('DOMContentLoaded', async () => {
                                     <div class="pane-project-title">${member.title}</div>
                                     <div class="pane-author">${member.author}</div>
                                 </div>
-                                <div class="pane-canvas-area" id="p5-container-${index}">
+                                <div class="pane-canvas-area ${isImageMode ? 'is-image' : ''}" id="p5-container-${index}">
                                     ${contentHTML}
                                 </div>
                             </div>
