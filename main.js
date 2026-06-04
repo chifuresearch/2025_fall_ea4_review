@@ -1986,9 +1986,9 @@ window.addEventListener('DOMContentLoaded', async () => {
                     // [修改] HTML 結構：About 圖片區加入箭頭
                     infoPanel.innerHTML = `
                         <div class="info-header">
-                            <div class="tab-btn active" data-tab="about">About</div>
-                            <div class="tab-btn" data-tab="tools">Tools</div>
-                            <div class="tab-btn" data-tab="process">Process</div>
+                            <div class="tab-btn active" data-tab="about">關於IIA</div>
+                            <div class="tab-btn" data-tab="tools">使用工具</div>
+                            <div class="tab-btn" data-tab="process">操作過程</div>
                             <div class="close-info-btn" id="close-info">✕</div>
                         </div>
                         <div class="info-content-area">
