@@ -572,8 +572,8 @@ window.addEventListener('DOMContentLoaded', async () => {
                     font-size: 0.9rem;
                     font-weight: 700;
                     letter-spacing: 2px;
-                    color: #aaffdd;
-                    text-shadow: 0 0 8px rgba(0, 255, 180, 0.7);
+                    color: #FFDAB9;
+                    text-shadow: 0 0 8px rgba(255, 85, 0, 0.7);
                     text-transform: uppercase;
                 }
 
@@ -591,14 +591,14 @@ window.addEventListener('DOMContentLoaded', async () => {
                     font-weight: 700;
                     text-transform: uppercase;
                     text-align: center;
-                    color: #e0fffa;
                     font-size: clamp(2.5rem, 6vw, 6rem);
                     line-height: 1.1;
                     letter-spacing: 2px;
+                    color: #FFF0E5; /* 讓主標題稍微偏暖白 */
                     text-shadow: 
-                        0 0 10px rgba(0, 255, 204, 0.8),
-                        0 0 30px rgba(0, 255, 204, 0.4),
-                        0 0 60px rgba(0, 255, 204, 0.2);
+                        0 0 10px rgba(255, 85, 0, 0.8),
+                        0 0 30px rgba(255, 85, 0, 0.4),
+                        0 0 60px rgba(255, 85, 0, 0.2);
                 }
 
                 .countdown-wrapper {
@@ -613,19 +613,19 @@ window.addEventListener('DOMContentLoaded', async () => {
                     font-family: 'Courier New', monospace;
                     font-weight: 700;
                     color: #fff;
+                    text-shadow: 0 0 15px rgba(255, 85, 0, 0.6);
                     font-size: clamp(2rem, 4vw, 4rem);
-                    text-shadow: 0 0 15px rgba(0, 255, 204, 0.6);
                     line-height: 1;
                 }
                 .time-separator {
                     font-family: 'Courier New', monospace;
                     font-size: clamp(2rem, 4vw, 4rem);
-                    color: rgba(0, 255, 204, 0.5);
+                    color: rgba(255, 85, 0, 0.5);
                     margin-top: -5px;
                 }
                 .time-label {
                     font-size: 0.9rem; 
-                    color: #00ffcc; 
+                    color: #FF5500;
                     margin-top: 5px; letter-spacing: 2px; opacity: 0.8;
                 }
 
@@ -652,8 +652,9 @@ window.addEventListener('DOMContentLoaded', async () => {
                     font-size: 0.9rem;
                     font-weight: 700;
                     letter-spacing: 2px;
-                    color: #aaffdd;
-                    text-shadow: 0 0 8px rgba(0, 255, 180, 0.7);
+                    color: #FF5500;
+                    border: 1px solid rgba(255, 85, 0, 0.3);
+                    background: rgba(255, 85, 0, 0.05);
                     letter-spacing: 3px; text-transform: uppercase;
                 }
 
@@ -661,8 +662,8 @@ window.addEventListener('DOMContentLoaded', async () => {
                     font-family: 'Courier New', monospace;
                     font-size: 1.3rem;
                     letter-spacing: 1px;
-                    color: #aaffdd;
-                    text-shadow: 0 0 8px rgba(0, 255, 180, 0.7);
+                    color: #FFCCAA; 
+                    text-shadow: 0 0 8px rgba(255, 85, 0, 0.7);
                     font-weight: bold;
                 }
 
@@ -670,29 +671,28 @@ window.addEventListener('DOMContentLoaded', async () => {
                 .explore-simple-btn {
                     pointer-events: auto; /* 恢復按鈕互動 */
                     font-size: 0.8rem;
-                    color: #00ffcc;
+                    color: #FF5500;
+                    border: 1px solid rgba(255, 85, 0, 0.3);
+                    background: rgba(255, 85, 0, 0.05);
                     cursor: pointer;
                     letter-spacing: 2px;
                     transition: all 0.3s ease;
                     text-transform: uppercase;
                     padding: 10px 20px;
-                    border: 1px solid rgba(0, 255, 204, 0.3);
-                    background: rgba(0, 255, 204, 0.05);
                 }
                 .explore-simple-btn:hover {
                     color: #fff;
-                    text-shadow: 0 0 8px #00ffcc;
-                    border-color: rgba(0, 255, 204, 0.8);
-                    background: rgba(0, 255, 204, 0.2);
-                    box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+                    text-shadow: 0 0 8px #FF5500;
+                    border-color: rgba(255, 85, 0, 0.8);
+                    background: rgba(255, 85, 0, 0.2);
+                    box-shadow: 0 0 15px rgba(255, 85, 0, 0.2);
                 }
 
                 .staff-info-row {
                     font-size: 0.9rem; 
                     font-weight:500;
-                    color: #777;
-                    text-shadow: 0 0 5px rgba(0, 255, 204, 0.7);
-                    // color: #007733; 
+                    color: #BBAA99; /* 替換原本的 #777，改為偏暖的灰褐色，提升層次感 */
+                    text-shadow: 0 0 5px rgba(255, 85, 0, 0.5);
                     letter-spacing: 1px; line-height: 1.5;
                 }
 
@@ -747,8 +747,8 @@ window.addEventListener('DOMContentLoaded', async () => {
                     font-size: 1.4rem; 
                     font-weight: 400; 
                     letter-spacing: 2px;
-                    color: #aaffdd;
-                    text-shadow: 0 0 8px rgba(0, 255, 180, 0.7); 
+                    color: #FFCCAA; 
+                    text-shadow: 0 0 8px rgba(255, 85, 0, 0.7);
                     text-align: center;
                 }
 
@@ -784,8 +784,24 @@ window.addEventListener('DOMContentLoaded', async () => {
                 .group-half-pane { flex: 1; display: flex; flex-direction: column; border-right: 1px solid rgba(255, 255, 255, 0.1); position: relative; }
                 .group-half-pane:last-child { border-right: none; }
                 .pane-header { padding: 15px 30px; background: transparent; border-bottom: 1px solid rgba(255,255,255,0.05); height: 90px; display: flex; flex-direction: column; justify-content: center; }
-                .pane-project-title { text-align: center; font-size: 1.1rem; font-weight: 800; margin-bottom: 25px; color: #e0e0e0; line-height: 1.3; }
-                .pane-author { text-align: center; font-size: 0.8rem; color: #999; font-family: monospace; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; }
+                .pane-project-title { 
+                    text-align: center; 
+                    font-size: 1.1rem; 
+                    font-weight: 800; 
+                    margin-bottom: 25px; 
+                    color: #FFF3EB; /* 帶有暖度的柔和白色，確保閱讀性 */
+                    text-shadow: 0 0 10px rgba(255, 85, 0, 0.4); /* 加上淡淡的橘紅光暈提升層次 */
+                    line-height: 1.3; 
+                    }
+                .pane-author { 
+                    text-align: center; 
+                    font-size: 0.8rem; 
+                    color: #FFCCAA; /* 改為暖膚橘色，與主視覺呼應 */
+                    text-shadow: 0 0 5px rgba(255, 85, 0, 0.3);
+                    font-family: monospace; 
+                    text-transform: uppercase; 
+                    letter-spacing: 1px; 
+                    text-decoration: underline; }
                 .pane-canvas-area { flex: 1; background: transparent; padding: 30px; box-sizing: border-box; display: flex; justify-content: center; align-items: center; position: relative; }
                 .pane-canvas-area iframe { width: 100%; height: 100%; border: 1px solid rgba(255,255,255,0.2); border-radius: 2px; }
                 
@@ -804,8 +820,10 @@ window.addEventListener('DOMContentLoaded', async () => {
                     font-size: 0.9rem;
                     font-weight: 700;
                     letter-spacing: 2px;
-                    color: #aaffdd;
-                    text-shadow: 0 0 8px rgba(0, 255, 180, 0.7); background: rgba(255,255,255,0.1); }
+                    color: #FFCCAA !important; 
+                    text-shadow: 0 0 8px rgba(255, 85, 0, 0.7); 
+                    background: rgba(255,255,255,0.1);
+                    }
                 .close-info-btn { width: 60px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-left: 1px solid rgba(255,255,255,0.1); font-size: 1.2rem; }
                 .info-content-area { flex: 1; overflow-y: auto; padding: 40px; position: relative; }
                 .tab-pane { display: none; height: 100%; animation: fadeIn 0.5s; }
@@ -895,7 +913,8 @@ window.addEventListener('DOMContentLoaded', async () => {
                 }
                 .about-nav-arrow:hover {
                     background: rgba(0, 0, 0, 0.6);
-                    color: #00ffcc;
+                    /* 原本是 #00ffcc */
+                    color: #FF5500;
                 }
                 .about-arrow-left { left: 0; }
                 .about-arrow-right { right: 0; }
@@ -961,8 +980,8 @@ window.addEventListener('DOMContentLoaded', async () => {
                         text-align: center; 
                         margin-top: 0;
                         margin-bottom: 25px; 
-                        color: #aaffdd;
-                        text-shadow: 0 0 10px rgba(0,255,204,0.3);
+                        color: #FFCCAA;
+                        text-shadow: 0 0 10px rgba(255, 85, 0, 0.3);
                     }
 
                     /* --- [Carousel] --- */
@@ -1017,9 +1036,21 @@ window.addEventListener('DOMContentLoaded', async () => {
                     }
                 }
 
-                .about-text { flex: 1; font-size: 1.25rem; line-height: 1.8; color: #ddd; text-align: left; }
-                .about-text h3 { flex: 1; font-size: 1.8rem; line-height: 1.8; color: #aaffdd;
-                        text-shadow: 0 0 10px rgba(0,255,204,0.3); text-align: center; }
+                .about-text { 
+                    flex: 1; 
+                    font-size: 1.25rem; 
+                    line-height: 1.8; 
+                    color: #ddd; 
+                    text-align: left; 
+                }
+                .about-text h3 { 
+                    flex: 1; 
+                    font-size: 1.8rem; 
+                    line-height: 1.8; 
+                    color: #FFCCAA; 
+                    text-shadow: 0 0 10px rgba(255, 85, 0, 0.5);
+                    text-align: center; 
+                }
                 .carousel-wrapper { position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
                 .carousel-container { display: flex; overflow-x: auto; gap: 40px; padding: 0 calc(50% - 150px); scroll-snap-type: x mandatory; height: 100%; align-items: center; scrollbar-width: none; width: 100%; font-size: 0.8rem}
                 .carousel-item { flex: 0 0 300px; height: 400px; box-sizing: border-box; flex-shrink: 0; scroll-snap-align: center; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 30px; text-align: center; transition: all 0.4s; display: flex; flex-direction: column; align-items: center; justify-content: center; transform: scale(0.9); opacity: 0.5; filter: blur(2px); }
@@ -1381,7 +1412,8 @@ window.addEventListener('DOMContentLoaded', async () => {
                         width: 100% !important;
                         height: 100% !important;
                         border-radius: 4px;
-                        border: 1px solid rgba(255,255,255,0.2);
+                        background: rgba(255, 85, 0, 0.05); /* 原為 rgba(0, 255, 204, 0.05) */
+                        border: 1px dashed rgba(255, 85, 0, 0.3);
                     }
                 }
                 
@@ -1403,12 +1435,12 @@ window.addEventListener('DOMContentLoaded', async () => {
 
                 .loader-text {
                     font-family: 'Courier New', monospace;
-                    color: #00ffcc;
+                    color: #FF5500;
+                    text-shadow: 0 0 10px rgba(255, 85, 0, 0.5);
                     font-size: 1.2rem;
                     letter-spacing: 3px;
                     margin-bottom: 20px;
                     text-transform: uppercase;
-                    text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
                     animation: blink-text 1.5s infinite alternate;
                 }
 
@@ -1426,8 +1458,8 @@ window.addEventListener('DOMContentLoaded', async () => {
                     left: 0;
                     height: 100%;
                     width: 0%;
-                    background: #00ffcc;
-                    box-shadow: 0 0 10px #00ffcc;
+                    background: #FF5500;
+                    box-shadow: 0 0 10px #FF5500;
                     animation: load-progress 2s ease-in-out infinite;
                 }
 
@@ -1464,16 +1496,16 @@ window.addEventListener('DOMContentLoaded', async () => {
                 }
 
                 .iframe-placeholder:hover {
-                    background: rgba(0, 255, 204, 0.15);
-                    border-color: #00ffcc;
-                    box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+                    background: rgba(255, 85, 0, 0.15);
+                    border-color: #FF5500;
+                    box-shadow: 0 0 15px rgba(255, 85, 0, 0.2);
                 }
 
                 .placeholder-icon {
                     font-size: 3rem;
-                    color: #00ffcc;
+                    color: #FF5500; /* 原為 #00ffcc */
+                    text-shadow: 0 0 10px rgba(255, 85, 0, 0.5);
                     margin-bottom: 10px;
-                    text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
                 }
 
                 .placeholder-text {
@@ -1532,7 +1564,7 @@ window.addEventListener('DOMContentLoaded', async () => {
                     
                     // Staff 資訊 (放在最下面)
                     advisor: "工作室主持人：蕭吉甫",
-                    staff: "組員：廖苡均 | 林宜勳 | 鄭語妡 | 林浩德 | 陳稼軒 | 許聖浩 | 王千兆"
+                    staff: "組員：廖苡均 | 林宜勳 | 鄭語妡 | 林浩德 | 許聖浩 | 王千兆"
                 },
                 1: {
                     type: 'group',
@@ -1557,26 +1589,12 @@ window.addEventListener('DOMContentLoaded', async () => {
                         image: "assests/1142/YI-CHUN_940x700.png"
                     },
                     member2: {
-                        author: "陳 稼軒",
-                        title: "結合行為感測與有機物響應的互動藝術",
-                        image: "assests/1142/CHIA-HSUAN_940x700.png"
-                    }
-                },
-                3: {
-                    type: 'group',
-                    groupTitle: "3 = 基於單元特徵 的 組織部署方法",
-                    member1: {
                         author: "林 宜勳",
                         title: "基於環境參數驅動的異質介面縫補策略",
                         image: "assests/1142/YI-HSUN_940x700.png" 
-                    },
-                    member2: {
-                        author: "王 千兆",
-                        title: "基於片狀材料形變量控制輕質自支撐結構內力分佈的拓樸優化方法",
-                        image: "assests/1142/CHIEN-CHAO_940x700.png"
                     }
                 },
-                4: {
+                3: {
                     type: 'group',
                     groupTitle: "3 = 基於單元特徵 的 組織部署方法",
                     member1: {
@@ -1585,9 +1603,9 @@ window.addEventListener('DOMContentLoaded', async () => {
                         image: "assests/1142/SHENG-HAO_940x700.png"
                     },
                     member2: {
-                        author: "",
-                        title: "",
-                        p5Url: "" 
+                        author: "王 千兆",
+                        title: "基於片狀材料形變量控制輕質自支撐結構內力分佈的拓樸優化方法",
+                        image: "assests/1142/CHIEN-CHAO_940x700.png"
                     }
                 }
                 
@@ -1600,9 +1618,9 @@ window.addEventListener('DOMContentLoaded', async () => {
                 mainTitle: "數位時代 的 Piranesi 主義", 
                 studioName: "智慧資訊建築 工作室", 
                 projectTitle: "2026 Spring IIA Studio",
-                btnText: "本學期組員 ➔", 
+                btnText: "本學期發展內容 ➔", 
                 advisor: "工作室主持人：蕭吉甫",
-                staff: "組員：廖苡均 | 林宜勳 | 鄭語妡 | 林浩德 | 陳稼軒 | 許聖浩 | 王千兆"
+                staff: "組員：廖苡均 | 林宜勳 | 鄭語妡 | 林浩德 | 許聖浩 | 王千兆"
             };
 
             // [新增] Matrix 亂碼特效函式
@@ -1677,7 +1695,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
                     // 故障特效樣式 (青色螢光)
                     // element.style.color = "#00ffcc";
-                    element.style.textShadow = "0 0 5px #00ffcc";
+                    element.style.textShadow = "0 0 5px #FF5500";
 
                 }, 50); // 每 50ms 更新一次
             }
@@ -1685,8 +1703,8 @@ window.addEventListener('DOMContentLoaded', async () => {
             // [新增] 模式 C 的資料
             const infoContentData = {
                 about: {
-                    title: "Computational Syntax: From Data to Architecture",
-                    content: "This studio explores the intersection of digital intelligence and physical space. We treat daily living events as data inputs, using computational tools to translate them into spatial mechanisms. Our goal is to redefine how architecture can respond, adapt, and inform its inhabitants through dynamic prototyping and algorithmic design.",
+                    title: "從數據到空間的運算文法",
+                    content: "本工作室探討數位智能與物理空間之交集。我們以日常生活事件作為數據輸入，藉由運算工具將其轉譯為空間機制。本工作室之宗旨，在於透過動態原型實作與演算技術設計，重新定義建築如何對環境中的使用進行回應、適應與資訊傳遞。",
                     // [修改] 改為圖片陣列 (支援多張圖片)
                     images: [
                         "00.png","01.png","02.png","03.png","04.png","05.png","06.png","07.png","08.png",
