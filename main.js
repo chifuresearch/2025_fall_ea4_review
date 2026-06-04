@@ -1524,6 +1524,109 @@ window.addEventListener('DOMContentLoaded', async () => {
                     /* 解決手機 iframe 互動問題 */
                     touch-action: none; 
                 }
+
+                /* ========================================================================== */
+                /* --- [新增] PDF Modal 彈出視窗樣式 --- */
+                /* ========================================================================== */
+                #pdf-modal {
+                    position: fixed;
+                    top: 0; left: 0;
+                    width: 100vw; height: 100vh;
+                    background: rgba(5, 5, 10, 0.85);
+                    backdrop-filter: blur(8px);
+                    -webkit-backdrop-filter: blur(8px);
+                    z-index: 10000; /* 確保在最上層，蓋過 loading screen 與 info-panel */
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    opacity: 0;
+                    pointer-events: none;
+                    transition: opacity 0.3s ease;
+                }
+
+                #pdf-modal.active {
+                    opacity: 1;
+                    pointer-events: auto;
+                }
+
+                .pdf-modal-content {
+                    width: 85%;
+                    height: 90%;
+                    background: #0a0a0f;
+                    border: 1px solid rgba(255, 85, 0, 0.4);
+                    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.8);
+                    border-radius: 8px;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .pdf-modal-header {
+                    flex: 0 0 50px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 0 20px;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                    background: rgba(255, 255, 255, 0.02);
+                }
+
+                .pdf-modal-title {
+                    color: #FFCCAA;
+                    font-family: 'Courier New', monospace;
+                    font-weight: bold;
+                    font-size: 1.2rem;
+                    letter-spacing: 1px;
+                }
+
+                .pdf-modal-close {
+                    color: #fff;
+                    font-size: 1.5rem;
+                    cursor: pointer;
+                    transition: color 0.3s, transform 0.3s;
+                    user-select: none;
+                }
+
+                .pdf-modal-close:hover {
+                    color: #FF5500;
+                    transform: scale(1.1);
+                }
+
+                .pdf-iframe-container {
+                    flex: 1;
+                    width: 100%;
+                    height: 100%;
+                    background: #fff; /* PDF 通常為白底，設為白底避免載入時閃爍黑格 */
+                    border-radius: 0 0 8px 8px;
+                    overflow: hidden;
+                }
+
+                .pdf-iframe-container iframe {
+                    width: 100%;
+                    height: 100%;
+                    border: none;
+                }
+
+                /* 讓有 PDF 的標題顯示為可點擊，並增加 Hover 效果 */
+                .pane-project-title.clickable {
+                    cursor: pointer;
+                    transition: color 0.3s ease, text-shadow 0.3s ease;
+                    position: relative;
+                    display: inline-block;
+                }
+
+                .pane-project-title.clickable:hover {
+                    color: #FF5500;
+                    text-shadow: 0 0 15px rgba(255, 85, 0, 0.8);
+                }
+
+                /* 可選：在可點擊的標題旁邊加上一個小 Icon 提示 */
+                .pane-project-title.clickable::after {
+                    content: ' 📄';
+                    font-size: 0.9rem;
+                    opacity: 0.7;
+                }
+
             `;
             document.head.appendChild(style);
 
@@ -1538,13 +1641,36 @@ window.addEventListener('DOMContentLoaded', async () => {
             `;
             document.body.appendChild(loadingScreen);
 
-
-
-
-
             let infoPanel = document.createElement('div');
             infoPanel.id = 'info-panel';
             document.body.appendChild(infoPanel);
+
+            // ============================================================
+            // --- [新增] 建立 PDF Modal 容器 ---
+            // ============================================================
+            const pdfModal = document.createElement('div');
+            pdfModal.id = 'pdf-modal';
+            pdfModal.innerHTML = `
+                <div class="pdf-modal-content">
+                    <div class="pdf-modal-header">
+                        <div class="pdf-modal-title" id="pdf-modal-title">Document</div>
+                        <div class="pdf-modal-close" id="pdf-modal-close">✕</div>
+                    </div>
+                    <div class="pdf-iframe-container">
+                        <iframe id="pdf-modal-iframe" src="" title="PDF Viewer"></iframe>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(pdfModal);
+
+            // 綁定關閉按鈕事件，隱藏 Modal 並清空 iframe src 以釋放記憶體
+            document.getElementById('pdf-modal-close').addEventListener('click', () => {
+                const modal = document.getElementById('pdf-modal');
+                modal.classList.remove('active');
+                setTimeout(() => {
+                    document.getElementById('pdf-modal-iframe').src = "";
+                }, 300); // 等待淡出動畫結束再清空，視覺上比較平滑
+            });
 
             // ============================================================
             // --- [Step 2] 定義資料庫 ---
@@ -1572,12 +1698,14 @@ window.addEventListener('DOMContentLoaded', async () => {
                     member1: {
                         author: "林 浩德",
                         title: "生物電訊號轉譯於即興音樂創作與空間展演的互動架構研究",
-                        p5Url: "https://editor.p5js.org/410360530/full/qmNLeH0qw"
+                        p5Url: "https://editor.p5js.org/410360530/full/qmNLeH0qw",
+                        pdfUrl: "assets/1142/pdf/Hao-De.pdf" 
                     },
                     member2: {
                         author: "鄭 語妡",
                         title: "環境中群聚能量的空間轉譯模式",
-                        p5Url: "https://editor.p5js.org/jjjn0309/full/yczXvzFgu"
+                        p5Url: "https://editor.p5js.org/jjjn0309/full/yczXvzFgu",
+                        pdfUrl: "assets/1142/pdf/Yu-Xin.pdf" 
                     }
                 },
                 2: {
@@ -1586,12 +1714,14 @@ window.addEventListener('DOMContentLoaded', async () => {
                     member1: {
                         author: "廖 苡均",
                         title: "光影景觀中多維度時間的敘事地景",
-                        image: "assests/1142/YI-CHUN_940x700.png"
+                        image: "assets/1142/YI-CHUN_940x700.png",
+                        pdfUrl: "assets/1142/pdf/Yi-Chun.pdf" 
                     },
                     member2: {
                         author: "林 宜勳",
                         title: "基於環境參數驅動的異質介面縫補策略",
-                        image: "assests/1142/YI-HSUN_940x700.png" 
+                        image: "assets/1142/YI-HSUN_940x700.png",
+                        pdfUrl: "assets/1142/pdf/Yi-Hsun.pdf" 
                     }
                 },
                 3: {
@@ -1600,12 +1730,14 @@ window.addEventListener('DOMContentLoaded', async () => {
                     member1: {
                         author: "許 聖浩",
                         title: "細部構造介入歷時性複合材料脈絡層構現象的設計方法",
-                        image: "assests/1142/SHENG-HAO_940x700.png"
+                        image: "assets/1142/SHENG-HAO_940x700.png",
+                        pdfUrl: "assets/1142/pdf/Sheng-Hao.pdf" 
                     },
                     member2: {
                         author: "王 千兆",
                         title: "基於片狀材料形變量控制輕質自支撐結構內力分佈的拓樸優化方法",
-                        image: "assests/1142/CHIEN-CHAO_940x700.png"
+                        image: "assets/1142/CHIEN-CHAO_940x700.png",
+                        pdfUrl: "assets/1142/pdf/Chien-Chao.pdf" 
                     }
                 }
                 
@@ -1622,41 +1754,6 @@ window.addEventListener('DOMContentLoaded', async () => {
                 advisor: "工作室主持人：蕭吉甫",
                 staff: "組員：廖苡均 | 林宜勳 | 鄭語妡 | 林浩德 | 許聖浩 | 王千兆"
             };
-
-            // [新增] Matrix 亂碼特效函式
-            // function startMatrixEffect(elementId, originalText) {
-            //     const element = document.getElementById(elementId);
-            //     if (!element) return;
-
-            //     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@#$%^&*アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポ";
-                
-            //     // 設定一個計時器，不斷隨機替換文字
-            //     const interval = setInterval(() => {
-            //         let randomText = "";
-            //         // 產生與原文字長度相近的亂碼
-            //         for (let i = 0; i < originalText.length; i++) {
-            //             // 保留原本的空格或標點符號，讓格式看起來稍微有點結構，或者全部亂碼
-            //             if (originalText[i] === ' ' || originalText[i] === '|' || originalText[i] === ':') {
-            //                 randomText += originalText[i];
-            //             } else {
-            //                 randomText += chars[Math.floor(Math.random() * chars.length)];
-            //             }
-            //         }
-            //         element.innerText = randomText;
-                    
-            //         // 偶爾隨機改變顏色 (營造故障感)
-            //         if (Math.random() > 0.9) {
-            //             element.style.color = "#00ffcc";
-            //             element.style.textShadow = "0 0 5px #00ffcc";
-            //         } else {
-            //             element.style.color = "#666"; // 回復原本顏色
-            //             element.style.textShadow = "none";
-            //         }
-
-            //     }, 60); // 每 60 毫秒更新一次
-
-            //     matrixIntervals.push(interval);
-            // }
             
             // [新增] 暫時性解碼動畫 (亂碼跳動 -> 回復正常)
             function runTemporaryDecodingEffect(elementId, originalText, duration = 1500) {
@@ -1848,29 +1945,6 @@ window.addEventListener('DOMContentLoaded', async () => {
                         // 注意：這裡使用之前定義的 startMatrixEffect (永久循環)，而非上面的 runTemporaryDecodingEffect
                         if (!window.matrixIntervals) window.matrixIntervals = [];
                         
-                        // 定義永久亂碼函式 (如果您還沒定義的話，放在這裡或是全域皆可)
-                        // const startMatrixEffect = (elementId, originalText) => {
-                        //     const element = document.getElementById(elementId);
-                        //     if (!element) return;
-                        //     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@#$%^&*";
-                        //     const interval = setInterval(() => {
-                        //         let randomText = "";
-                        //         for (let i = 0; i < originalText.length; i++) {
-                        //             if (originalText[i] === ' ' || originalText[i] === '|') randomText += originalText[i];
-                        //             else randomText += chars[Math.floor(Math.random() * chars.length)];
-                        //         }
-                        //         element.innerText = randomText;
-                        //         if (Math.random() > 0.9) { element.style.color = "#00ffcc"; element.style.textShadow = "0 0 5px #00ffcc"; }
-                        //         else { element.style.color = "#666"; element.style.textShadow = "none"; }
-                        //     }, 80);
-                        //     window.matrixIntervals.push(interval);
-                        // };
-
-                        // 啟動永久亂碼
-                        // setTimeout(() => {
-                        //     startMatrixEffect('cover-advisor', activeData.advisor);
-                        //     startMatrixEffect('cover-staff', activeData.staff);
-                        // }, 100);
                     }
                 }
                 
@@ -1886,8 +1960,8 @@ window.addEventListener('DOMContentLoaded', async () => {
                     // [新增] 判斷是否為手機 (寬度小於等於 768px)
                     const isMobile = window.innerWidth <= 768;
 
+                    // [修改] createHalfHTML 函式，加入 PDF 相關判斷與 data-attributes
                     const createHalfHTML = (member, index) => {
-                        // 根據裝置決定內容：手機顯示按鈕，電腦直接顯示 iframe
                         let contentHTML = '';
                         const isImageMode = !!member.image;
 
@@ -1906,10 +1980,16 @@ window.addEventListener('DOMContentLoaded', async () => {
                             contentHTML = `<img src="${member.image}" alt="${member.title}">`;
                         }
 
+                        // [新增] 判斷是否有 PDF，賦予不同 class 與 data-pdf 屬性
+                        const hasPdf = !!member.pdfUrl;
+                        const titleClass = hasPdf ? "pane-project-title clickable" : "pane-project-title";
+                        const pdfDataAttr = hasPdf ? `data-pdf="${member.pdfUrl}"` : "";
+
+                        // 修改 pane-project-title 的 div
                         return `
                             <div class="group-half-pane">
                                 <div class="pane-header">
-                                    <div class="pane-project-title">${member.title}</div>
+                                    <div class="${titleClass}" ${pdfDataAttr}>${member.title}</div>
                                     <div class="pane-author">${member.author}</div>
                                 </div>
                                 <div class="pane-canvas-area ${isImageMode ? 'is-image' : ''}" id="p5-container-${index}">
@@ -1930,6 +2010,25 @@ window.addEventListener('DOMContentLoaded', async () => {
                             ${createHalfHTML(data.member2, 2)}
                         </div>
                     `;
+
+                    // ============================================================
+                    // --- [新增] 綁定標題點擊事件以打開 PDF ---
+                    // ============================================================
+                    const clickableTitles = infoPanel.querySelectorAll('.pane-project-title.clickable');
+                    clickableTitles.forEach(titleEl => {
+                        titleEl.addEventListener('click', (e) => {
+                            e.stopPropagation(); // 防止觸發其他可能綁在背景的事件
+                            const pdfUrl = titleEl.getAttribute('data-pdf');
+                            if (pdfUrl) {
+                                // 設定 Modal 標題為專案名稱
+                                document.getElementById('pdf-modal-title').innerText = titleEl.innerText.replace(' 📄', '');
+                                // 載入 PDF 到 iframe
+                                document.getElementById('pdf-modal-iframe').src = pdfUrl;
+                                // 顯示 Modal
+                                document.getElementById('pdf-modal').classList.add('active');
+                            }
+                        });
+                    });
 
                     // [手機版專用] 綁定載入按鈕事件
                     // 只有在 isMobile 為 true 時，DOM 裡才會有 .iframe-placeholder，這段程式碼才會生效
