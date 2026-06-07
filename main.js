@@ -1415,6 +1415,19 @@ window.addEventListener('DOMContentLoaded', async () => {
                         background: rgba(255, 85, 0, 0.05); /* 原為 rgba(0, 255, 204, 0.05) */
                         border: 1px dashed rgba(255, 85, 0, 0.3);
                     }
+
+                    /* 1. 設定圖片強制填滿容器 */
+                    .pane-canvas-area img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover; /* 使用 cover 可確保圖片無死角填滿版面，超出比例的部分會自動裁切。若希望不被裁切請改為 contain */
+                        border: 1px solid rgba(255,255,255,0.2); /* 維持與 iframe 一致的視覺邊框 */
+                        border-radius: 2px;
+                    }
+
+                    .pane-canvas-area.is-image {
+                        padding: 0; /* 覆寫原本的 padding: 30px，讓圖片真正貼齊容器邊界 */
+                    }
                 }
                 
                 /* --- Loading Screen --- */
@@ -1704,7 +1717,7 @@ window.addEventListener('DOMContentLoaded', async () => {
                     member2: {
                         author: "鄭 語妡",
                         title: "環境中群聚能量的空間轉譯模式",
-                        p5Url: "https://editor.p5js.org/jjjn0309/full/yczXvzFgu",
+                        image: "assets/1142/YU-XIN_940x700.png",
                         pdfUrl: "assets/1142/pdf/Yu-Xin.pdf" 
                     }
                 },
@@ -1812,7 +1825,6 @@ window.addEventListener('DOMContentLoaded', async () => {
                     { name: "p5.js", image: "https://upload.wikimedia.org/wikipedia/commons/c/c6/P5.js_icon.svg", desc: "Creative Coding for Visual Arts", link: "https://p5js.org/" },
                     { name: "Grasshopper", image: "https://images.seeklogo.com/logo-png/29/1/grasshopper-3d-logo-png_seeklogo-291372.png", desc: "Parameteric Design of Visual Scripting.", link: "https://www.grasshopper3d.com/" },
                     { name: "Gemini AI", image: "https://upload.wikimedia.org/wikipedia/commons/8/8a/Google_Gemini_logo.svg", desc: "Large Language Model Reasoning", link: "#" },
-                    { name: "Arduino", image: "https://upload.wikimedia.org/wikipedia/commons/8/87/Arduino_Logo.svg", desc: "Physical Computing & Sensors", link: "https://www.arduino.cc/" }
                 ],
                 // [修改] process 改用圖片連結 (image)
                 process: [
